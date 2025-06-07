@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.18.4",
+    "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^5.0.1",
     "@prisma/client": "^6.7.0",
     "@radix-ui/react-accordion": "^1.2.8",
@@ -52,7 +53,7 @@
     "react": "^19.0.0",
     "react-day-picker": "^8.10.1",
     "react-dom": "^19.0.0",
-    "react-hook-form": "^7.56.1",
+    "react-hook-form": "^7.56.3",
     "react-resizable-panels": "^3.0.0",
     "recharts": "^2.15.3",
     "sonner": "^2.0.3",

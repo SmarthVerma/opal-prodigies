@@ -156,4 +156,168 @@ export const getWorkSpaces = async () => {
   }
 };
 
+export const createWorkspace = async (name: string) => {
+  try {
+    const user = await currentUser();
+    if (!user) return { status: 404 };
 
+    //check authroization
+
+    const authorized = await client.user.findUnique({
+      where: {
+        clerkid: user.id,
+      },
+      select: {
+        subscription: {
+          select: {
+            plan: true,
+          },
+        },
+      },
+    });
+
+    if (authorized?.subscription?.plan === "PRO") {
+      const workspace = await client.user.update({
+        where: {
+          clerkid: user.id,
+        },
+        data: {
+          workspace: {
+            create: {
+              name,
+              type: "PUBLIC",
+            },
+          },
+        },
+      });
+      if (workspace) {
+        return { status: 201, data: "Workspace Created" };
+      }
+    }
+
+    return {
+      status: 401,
+      data: "You are not authorized to create a workspace",
+    };
+  } catch (error) {
+    return { status: 400 };
+  }
+};
+
+export const renameFolders = async (folderId: string, name: string) => {
+  try {
+    const folder = await client.folder.update({
+      where: {
+        id: folderId,
+      },
+      data: {
+        name,
+      },
+    });
+
+    if (folder) {
+      return { status: 200, data: "Folder Renamed" };
+    }
+
+    return { status: 400, data: "Folder does not exist" };
+  } catch (error) {
+    return { status: 500, data: "Opps! something went wrong" };
+  }
+};
+
+export const createFolder = async (workspaceId: string) => {
+  try {
+    const isNewFolder = await client.workSpace.update({
+      where: {
+        id: workspaceId,
+      },
+      data: {
+        folders: {
+          create: { name: "Untitled" },
+        },
+      },
+    });
+
+    if (isNewFolder) {
+      return { status: 200, message: "New Folder Created" };
+    }
+  } catch (error) {
+    return { status: 500, message: "Oppse something went wrong" };
+  }
+};
+
+// made with ai
+export const deleteFolder = async (folderId: string) => {
+  try {
+    const user = await currentUser();
+    if (!user) return { status: 403, data: "Unauthorized" };
+
+    const folder = await client.folder.findUnique({
+      where: { id: folderId },
+      include: {
+        WorkSpace: {
+          select: {
+            User: {
+              select: { clerkid: true },
+            },
+          },
+        },
+      },
+    });
+
+    if (!folder) {
+      return { status: 404, data: "Folder does not exist" };
+    }
+
+    const ownerId = folder.WorkSpace?.User?.clerkid;
+    if (ownerId !== user.id) {
+      return {
+        status: 403,
+        data: "You are not authorized to delete this folder",
+      };
+    }
+
+    await client.folder.delete({
+      where: { id: folderId },
+    });
+
+    return { status: 200, data: "Folder Deleted" };
+  } catch (error) {
+    return { status: 500, data: "Oops! Something went wrong" };
+  }
+};
+
+export const getFolderInfo = async (folderId: string) => {
+  try {
+    const folder = await client.folder.findUnique({
+      where: {
+        id: folderId,
+      },
+      select: {
+        name: true,
+        _count: {
+          select: {
+            videos: true,
+          },
+        },
+      },
+    });
+
+    if (folder) {
+      return {
+        status: 200,
+        data: folder,
+      };
+    }
+
+    return {
+      status: 400,
+      data: null,
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      data: null,
+    };
+  }
+};
