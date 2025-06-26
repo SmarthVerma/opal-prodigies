@@ -32,6 +32,8 @@ const Page = ({ params }: Props) => {
             <Folders workspaceId={params.workspaceId} />
           </TabsContent>
         </section>
+
+        {/* another section for all first 3 videos */}
       </Tabs>
     </div>
   );

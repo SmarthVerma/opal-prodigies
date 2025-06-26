@@ -7,6 +7,8 @@ import Folder from "./folder";
 import { useQueryData } from "@/hooks/useQueryData";
 import { getWorkspaceFolders } from "@/actions/workspace";
 import { useMutationDataState } from "@/hooks/useMutationData";
+import { useDispatch } from "react-redux";
+import { FOLDERS } from "@/app/redux/slices/folders";
 
 type Props = {
   workspaceId: string;
@@ -30,6 +32,7 @@ const Folders = ({ workspaceId }: Props) => {
   // get folders
   // optimistic variable =
 
+  const dispatch = useDispatch();
   const { data, isFetched } = useQueryData(["workspace-folders"], () =>
     getWorkspaceFolders(workspaceId)
   );
@@ -38,6 +41,10 @@ const Folders = ({ workspaceId }: Props) => {
   const { latestVariables } = useMutationDataState(["create-folder"]); // understand this why
 
   const { status, data: folders } = data as FoldersProps;
+
+  if (isFetched && folders) {
+    dispatch(FOLDERS({ folders: folders }));
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -68,12 +75,12 @@ const Folders = ({ workspaceId }: Props) => {
                 optimistic
               />
             )}
-            {folders.map((folder) => ( 
+            {folders.map((folder) => (
               <Folder
                 name={folder.name}
                 count={folder._count.videos}
                 id={folder.id}
-                key={folder.  id}
+                key={folder.id}
               />
             ))}
           </>

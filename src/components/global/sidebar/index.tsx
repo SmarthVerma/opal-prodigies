@@ -28,6 +28,8 @@ import { Button } from "@/components/ui/button";
 import Loader from "../loader";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import InfoBar from "../info-bar";
+import { useDispatch } from "react-redux";
+import { WORKSPACES } from "@/app/redux/slices/workspaces";
 
 type Props = {
   activeWorkspaceId: string;
@@ -36,6 +38,7 @@ type Props = {
 const Sidebar = ({ activeWorkspaceId }: Props) => {
   // WIP: add the upgrade button to the sidebar
   const router = useRouter();
+  const dispatch = useDispatch();
   const pathName = usePathname();
   const menuItems = MENU_ITEMS(activeWorkspaceId);
 
@@ -60,6 +63,10 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
   const currentWorkspace = workspaces?.workspace?.find(
     (workspace) => workspace.id === activeWorkspaceId
   );
+
+  if (isFetched && workspaces) {
+    dispatch(WORKSPACES({ workspaces: workspaces.workspace }));
+  }
 
   const SidebarSection = (
     <div className="bg-[#111111] flex-none relative p-4 h-full w-[250px] flex flex-col gap-4 items-center overflow-auto">
