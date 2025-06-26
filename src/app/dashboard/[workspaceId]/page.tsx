@@ -1,6 +1,7 @@
 import CreateFolder from "@/components/global/create-folders";
 import CreateWorkspace from "@/components/global/create-workspace";
 import Folders from "@/components/global/folders";
+import Videos from "@/components/global/videos";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";
 
@@ -8,7 +9,9 @@ type Props = {
   params: { workspaceId: string };
 };
 
-const Page = ({ params }: Props) => {
+const Page = async ({ params }: Props) => {
+  const { workspaceId } = await params;
+
   return (
     <div>
       <Tabs defaultValue="videos" className="mt-6">
@@ -24,16 +27,16 @@ const Page = ({ params }: Props) => {
           </TabsList>
           <div className="flex gap-x-3">
             <CreateWorkspace />
-            <CreateFolder workspaceId={params.workspaceId} />
+            <CreateFolder workspaceId={workspaceId} />
           </div>
         </div>
         <section>
           <TabsContent value="videos">
-            <Folders workspaceId={params.workspaceId} />
+            <Folders workspaceId={workspaceId} />
+            {/* My added videoId */}
+            <Videos workspaceId={workspaceId} videosKey={"workspace-videos"} />
           </TabsContent>
         </section>
-
-        {/* another section for all first 3 videos */}
       </Tabs>
     </div>
   );

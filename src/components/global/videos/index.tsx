@@ -8,18 +8,19 @@ import { VideosProps } from "@/types/index.types";
 import VideoCard from "./video-card";
 
 type Props = {
-  folderId: string;
+  folderId?: string;
   videosKey: string;
   workspaceId: string;
 };
 
 const Videos = ({ folderId, videosKey, workspaceId }: Props) => {
   const { data: videoData } = useQueryData([videosKey], () =>
-    getAllUserVideos(folderId)
+    getAllUserVideos(folderId ? folderId : workspaceId)
   );
+  console.log('DATA', videoData);
 
-  const { status: videosStatus, data: videos } = videoData as VideosProps;
-
+  const { status: videosStatus, data: videos } = (videoData ||
+    {}) as VideosProps;
   return (
     <div className="flex flex-col gap-4 mt-4">
       <div className="flex items-center justify-between">

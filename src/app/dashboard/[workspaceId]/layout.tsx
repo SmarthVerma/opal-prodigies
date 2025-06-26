@@ -21,7 +21,9 @@ type Props = {
   params: { workspaceId: string };
 };
 
-const Layout = async ({ children, params: { workspaceId } }: Props) => {
+const Layout = async ({ children, params }: Props) => {
+  const { workspaceId } = await params;
+
   const auth = await onAuthenticatedUser();
 
   if (!auth.user?.workspace) redirect("/auth/sign-in");
