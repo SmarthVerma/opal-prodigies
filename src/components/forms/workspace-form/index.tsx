@@ -25,8 +25,9 @@ const WorkspaceForm = (props: Props) => {
         className="text-sm w-full mt-2"
         type="submit"
         disabled={isPending}
+        variant={'default'}
       >
-        <Loader state={isPending}>Create Workspace</Loader>
+        <Loader color="#fff" state={isPending}>Create Workspace</Loader>
       </Button>
     </form>
   );

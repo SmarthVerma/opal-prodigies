@@ -29,6 +29,8 @@ const page = async ({ params }: Props) => {
     queryFn: () => getFolderInfo(folderId),
   });
 
+  console.log('SO i got called again for not reason at all',)
+
   return (
     <HydrationBoundary state={dehydrate(query)}>
       <FolderInfo folderId={folderId} />

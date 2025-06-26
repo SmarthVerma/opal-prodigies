@@ -124,6 +124,8 @@
 }
 
 .fade-layer {
+  padding-top: 4px;
+  padding-bottom: 4px;
     mask-image: linear-gradient(
         to top,
         rgba(0, 0, 0, 0),

@@ -23,6 +23,7 @@ type Props = {
 
 const Layout = async ({ children, params }: Props) => {
   const { workspaceId } = await params;
+  if (!workspaceId) return;
 
   const auth = await onAuthenticatedUser();
 
@@ -40,23 +41,24 @@ const Layout = async ({ children, params }: Props) => {
   const query = new QueryClient();
 
   // kinda statemangagement but for servers
-  await query.prefetchQuery({
-    queryKey: ["workspace-folders"],
+
+  await query.prefetchQuery({ 
+    queryKey: ["workspace-folders"], //
     queryFn: () => getWorkspaceFolders(workspaceId),
   });
 
   await query.prefetchQuery({
-    queryKey: ["user-videos"],
+    queryKey: ["user-videos"],  
     queryFn: () => getAllUserVideos(workspaceId),
   });
 
-  await query.prefetchQuery({
-    queryKey: ["user-workspaces"],
+  await query.prefetchQuery({ 
+    queryKey: ["user-workspaces"], //
     queryFn: () => getWorkSpaces(),
   });
 
-  await query.prefetchQuery({
-    queryKey: ["user-notifications"],
+  await query.prefetchQuery({ 
+    queryKey: ["user-notifications"], //
     queryFn: () => getNotifications(),
   });
 

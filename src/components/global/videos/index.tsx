@@ -17,7 +17,6 @@ const Videos = ({ folderId, videosKey, workspaceId }: Props) => {
   const { data: videoData } = useQueryData([videosKey], () =>
     getAllUserVideos(folderId ? folderId : workspaceId)
   );
-  console.log('DATA', videoData);
 
   const { status: videosStatus, data: videos } = (videoData ||
     {}) as VideosProps;

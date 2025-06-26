@@ -1,4 +1,4 @@
-import { useAppSelector } from "@/app/redux/store";
+import { useAppSelector } from "@/redux/store";
 import { useEffect, useState } from "react";
 import { useMutationData } from "./useMutationData";
 import { getWorkspaceFolders, moveVideoLocation } from "@/actions/workspace";
@@ -58,7 +58,6 @@ export const useMoveVideos = (videoId: string, currentWorkspace: string) => {
     return () => workspace.unsubscribe();
   }, [watch]);
 
-
   return {
     onFormSubmit,
     errors,
@@ -68,5 +67,5 @@ export const useMoveVideos = (videoId: string, currentWorkspace: string) => {
     workspaces,
     isFetching,
     isFolders,
-  }
+  };
 };

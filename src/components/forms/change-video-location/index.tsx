@@ -41,9 +41,9 @@ const ChangeVideoLocation = ({
         {workspace && <p>{workspace.name}</p>}
         <h2 className="text-xs text-[#a4a4a4]">Current Folder</h2>
         {folder ? (
-          <p className="text-[#a4a4a4]">{folder.name}</p>
+          <p >{folder.name}</p>
         ) : (
-          <p className="text-[#a4a4a4]">No Folder</p>
+          <p >No Folder</p>
         )}
       </div>
 
@@ -81,7 +81,7 @@ const ChangeVideoLocation = ({
                 {isFolders.map((folder, key) =>
                   key === 0 ? (
                     <option
-                      className="text-[#a4a4a4]"
+                      className="bg-red-700 text-[#a4a4a4]"
                       key={folder.id}
                       value={folder.id}
                     >

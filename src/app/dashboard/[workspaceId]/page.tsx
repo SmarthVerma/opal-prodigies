@@ -11,7 +11,7 @@ type Props = {
 
 const Page = async ({ params }: Props) => {
   const { workspaceId } = await params;
-
+  console.log("called how many times?");
   return (
     <div>
       <Tabs defaultValue="videos" className="mt-6">
@@ -34,7 +34,7 @@ const Page = async ({ params }: Props) => {
           <TabsContent value="videos">
             <Folders workspaceId={workspaceId} />
             {/* My added videoId */}
-            <Videos workspaceId={workspaceId} videosKey={"workspace-videos"} />
+            <Videos workspaceId={workspaceId} videosKey={"user-videos"} />
           </TabsContent>
         </section>
       </Tabs>

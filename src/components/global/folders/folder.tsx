@@ -36,7 +36,6 @@ const Folder = ({ id, name, optimistic, count }: Props) => {
   );
 
   const { latestVariables } = useMutationDataState(["rename-folders"]);
-  console.log("this is the latest Variables", latestVariables);
   const handleFolderClick = () => {
     if (onRename) return;
     router.push(`${pathName}/folder/${id}`);

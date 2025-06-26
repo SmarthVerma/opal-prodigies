@@ -29,7 +29,7 @@ import Loader from "../loader";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import InfoBar from "../info-bar";
 import { useDispatch } from "react-redux";
-import { WORKSPACES } from "@/app/redux/slices/workspaces";
+import { WORKSPACES } from "@/redux/slices/workspaces";
 
 type Props = {
   activeWorkspaceId: string;
@@ -166,7 +166,7 @@ const Sidebar = ({ activeWorkspaceId }: Props) => {
         </div>
       )}
       <nav className="w-full">
-        <ul className="h-[150px] overflow-auto overflow-x-hidden fade-layer">
+        <ul className="h-[160px] overflow-auto overflow-x-hidden fade-layer">
           {workspaces.workspace.length > 0 &&
             workspaces.workspace.map(
               (item) =>

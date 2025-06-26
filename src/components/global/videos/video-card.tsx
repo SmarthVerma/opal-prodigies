@@ -1,10 +1,9 @@
-import ChangeVideoLocation from "@/components/forms/change-video-location";
-import Loader from "../loader";
-import CardMenu from "./video-card-menu";
-import CopyLink from "./copy-link";
-import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Dot, Share2, User } from "lucide-react";
+import Link from "next/link";
+import Loader from "../loader";
+import CopyLink from "./copy-link";
+import CardMenu from "./video-card-menu";
 
 type Props = {
   User: {
