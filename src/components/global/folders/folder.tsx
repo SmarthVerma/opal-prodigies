@@ -67,7 +67,7 @@ const Folder = ({ id, name, optimistic, count }: Props) => {
           "items-center gap-2 justify-between min-w-[250px] p-4 rounded-lg border-[1px]"
       )}
     >
-      <Loader state={false}>
+      <Loader state={isPending}>
         <div className="flex flex-col gap-[1px]">
           <div className="flex flex-col gap-[1px]">
             {onRename ? (

@@ -30,6 +30,7 @@ model User {
   sender        Invite[]        @relation("sender", map: "User_sender_fkey")
   reciever      Invite[]        @relation("reciever", map: "User_reciever_fkey")
   trial         Boolean         @default(false)
+  fistView      Boolean         @default(false)
 }
 
 model Subscription {
