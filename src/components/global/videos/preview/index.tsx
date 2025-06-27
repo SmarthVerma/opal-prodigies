@@ -12,6 +12,7 @@ import { TabsContent } from "@/components/ui/tabs";
 import { TabMenu } from "../../tabs";
 import VideoTranscript from "../../video-transcrript";
 import RichLink from "../rich-link";
+import Activities from "../../activities";
 
 type Props = {
   videoId: string;
@@ -20,7 +21,7 @@ type Props = {
 const VideoPreview = ({ videoId }: Props) => {
   // WIP: Setup notify first view
   const router = useRouter();
-  console.log( 'this is videoId ',videoId);
+  console.log("this is videoId ", videoId);
 
   const { data } = useQueryData(["preview-video"], () =>
     getPreviewVideo(videoId)
@@ -107,9 +108,13 @@ const VideoPreview = ({ videoId }: Props) => {
             <AiTools
               videoId={videoId}
               trial={video?.User?.trial}
-              plan={video.User?.subscription?.plan!}
+              plan={video.User?.subscription?.plan || 'FREE'}
             />
             <VideoTranscript transcript={video.description!} />
+            <Activities
+              author={video.User?.firstname as string}
+              videoId={videoId}
+            />
           </TabMenu>
         </div>
       </div>

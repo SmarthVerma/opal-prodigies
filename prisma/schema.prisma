@@ -31,6 +31,24 @@ model User {
   reciever      Invite[]        @relation("reciever", map: "User_reciever_fkey")
   trial         Boolean         @default(false)
   fistView      Boolean         @default(false)
+  comment       Comment[]
+}
+
+
+model Comment {
+    id        String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+    comment   String
+    createdAt DateTime  @default(now())
+    
+    reply     Comment[] @relation("reply")
+    Comment   Comment?  @relation("reply", fields: [commentId], references: [id])
+    commentId String?   @db.Uuid
+
+    User      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId    String?   @db.Uuid
+
+    Video     Video?    @relation(fields: [videoId], references: [id], onDelete: Cascade)
+    videoId   String?   @db.Uuid
 }
 
 model Subscription {
@@ -93,6 +111,7 @@ model Video {
   workSpaceId String?     @db.Uuid
   views       Int         @default(0)
   summery     String?
+  Comment  Comment[]  // or name it comments if plural preferred
 }
 
 model Member {
